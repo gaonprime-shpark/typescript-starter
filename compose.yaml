@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  practice-server:
+    build: .
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    networks:
+      - nest-server
+    environment:
+      - MONGO_URI=mongodb://practice-mongo/nest
+  # practice-mongo:
+  #   image: mongo
+  #   restart: always
+  #   expose:
+  #     - ${MONGO_PORT}
+  #   networks:
+  #     - nest-server
+  #   volumes:
+  #     - ./data:/data/db
+
+# networks:
+#   nest-server:
+networks:
+  nest-server:
+    external:
+      name: ${EXTERNAL_NETWORK_NAME}

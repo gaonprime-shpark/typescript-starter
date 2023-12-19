@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  # practice-server:
+  #   build: .
+  #   ports:
+  #     - '${SERVER_PORT}:${SERVER_PORT}'
+  #   networks:
+  #     - nest-server
+
+  practice-mongo:
+    container_name: 'haha'
+    # image: mongo
+    build: .
+    restart: always
+    expose:
+      - ${MONGO_PORT}
+    networks:
+      - nest-server
+    volumes:
+      - mongodb-volume:/data/db
+
+#external 설정은 동일한 프로젝트내에서 공유 가능한 네트웍임
+#docker network create ${network_name}
+networks:
+  nest-server:
+    name: ${EXTERNAL_NETWORK_NAME}
+    external: true
+volumes:
+  mongodb-volume:
+    external: true
